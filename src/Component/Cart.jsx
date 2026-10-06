@@ -2,10 +2,15 @@ import { useDispatch, useSelector } from "react-redux";
 import MenuListCard from "./MenuListCard";
 import { clearCart } from "../utils/cartslice";
 import { useEffect, useState } from "react";
+import Portal from "./Portal";  
+
+
 
 const Cart = () =>{
 
      const [TotalPrice , setTotalPrice]=useState([0,0])
+     const [flag,setFlag]=useState(false);
+
 
     const cartItem=useSelector((store)=>store.cart.items)
 
@@ -90,7 +95,10 @@ const Cart = () =>{
                         <span>&#x20B9; {TotalPrice[0] + TotalPrice[1]}</span>
                    </span>     
 
-                   <button className="mt-6 bg-green-700 hover:bg-green-900 text-white py-4 font-bold rounded-lg cursor-pointer">Place Order</button>    
+                   <button onClick={()=>{
+                      setFlag(true)
+                   }}
+                   className="mt-6 bg-green-700 hover:bg-green-900 text-white py-4 font-bold rounded-lg cursor-pointer">Place Order</button>    
 
 
                </div>
@@ -98,6 +106,14 @@ const Cart = () =>{
 
 
     </div>
+    
+     <Portal flag={flag}>
+             <div className="bg-gray-300 p-14 rounded-2xl flex flex-col">
+                <span className="text-2xl font-bold pb-14 text-red-700">! Unable to Place Order , Backend Intigration Missing</span>
+                      <button onClick={()=>setFlag(false)}
+                      className="bg-gray-600 cursor-pointer w-fit mx-auto px-6 py-2 rounded-lg text-white font-semibold"> OK !</button>
+             </div>
+     </Portal>
      
     </div>
     )

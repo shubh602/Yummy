@@ -5,26 +5,19 @@ import UseOnlineStatus from "../utils/useOnlineStatus";
 import { userContext } from "../utils/UserContext";
 import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHouse , faUser , faPhone , faCartShopping , faBagShopping , faCartFlatbed , faBars , faXmark} from "@fortawesome/free-solid-svg-icons";
+import { faHouse , faUser , faPhone , faCartShopping , faCartFlatbed , faBars , faXmark , faShuffle} from "@fortawesome/free-solid-svg-icons";
+import Portal from "./Portal";
 
 
 
 let Header = () =>{
 
 const [loginBtn , setLoginBtn] = useState(false)
-const {Username,setInfo}=useContext(userContext)
 const [BgColor , setBgColor]=useState(false)
 const [NavBar , setNavBar]=useState(false)
+const [flag,setflag]=useState(false)
 
 
- const LoginChange=async()=>{
-    await setLoginBtn(!loginBtn)
-                                                     //   Dont know why it behaving like this 
-    let Accout=await !loginBtn ?"shubham":"Guest";
-    setInfo(Accout);
-}
-
-  // console.log(BgColor);
   
 
 useEffect(() => {
@@ -49,12 +42,14 @@ const cartitems=useSelector((store)=>store.cart.items)
 
 
 
-
 return(<>
-                   {/* Small Screen */}
+                   {/* Small Screen Start*/}
   <div className={`dark:text-white block lg:hidden z-50 w-full fixed ${BgColor && "bg-gray-500"}`}>
       <div className="py-2 px-3 flex justify-between items-center ">
-         <span className="text-2xl font-bold italic">🛵-FOODI </span>
+         <Link to="/">
+            <span className="text-2xl font-bold italic cursor-pointer">🛵-FOODI </span>
+         </Link>
+
 
           <ul className="flex items-center space-x-5 text-2xl font-semibold">
                  <Link to="/cart">
@@ -78,6 +73,9 @@ return(<>
   <div className={`${NavBar?"block":"hidden"} dark:text-white h-lvh ml-auto w-full bg-gray-500 text-gray-200 py-20 px-8`}>
             <ul className="text-center text-xl font-semibold space-y-10">
                
+                <li className="/grocery">
+                      <Link to="/gro"><span><FontAwesomeIcon className="pr-4" icon={faCartShopping} /></span>Grocery</Link>
+                </li>
                 <li className="">
                        <Link to="/"> <span><FontAwesomeIcon className="pr-4" icon={faHouse} /></span>Home</Link>
                 </li>
@@ -87,36 +85,77 @@ return(<>
                 <li className="">
                       <Link to="/contact"><span><FontAwesomeIcon className="pr-4" icon={faPhone} /></span>Contact</Link>
                 </li>
-                <li className="/grocery">
-                      <Link to="/gro"><span><FontAwesomeIcon className="pr-4" icon={faCartShopping} /></span>Grocery</Link>
-                </li>
-                <li onClick={()=>{LoginChange()}} className="">
-                      <button className={`${loginBtn?"bg-orange-500 px-3.5":"bg-gray-300 px-1.5"} mr-4  py-1 rounded-full relative border-4 border-gray-400 cursor-pointer`}
+                
+                <li className="">
+                      <button className={`bg-orange-500 px-1.5 mr-4 py-1 rounded-full relative border-4 border-gray-400 cursor-pointer`}
                         >
                         <span className="Online-status text-lg absolute -right-1 -bottom-2">{UseOnlineStatus()?"🟢":"🔴"}</span>
-                        <span>{loginBtn? Username[0].toUpperCase() : <FontAwesomeIcon icon={faUser} />} </span>
+                        <span><FontAwesomeIcon icon={faUser} /> </span>
                       </button>
-                      <span>{Username}</span>
+                        <span>User</span>
                 </li>
 
             </ul>
   </div>
 
   </div>
+                     {/* Small Screen End */}
+
+
+
+
+
+                     <Portal flag={flag}>
+                              {/* <span className="text-4xl text-white">Hello From portal</span>           */}
+                              <div className=" bg-white flex flex-col rounded-2xl px-6 py-10">
+                                       <h1 className="text-2xl font-bold pt-5 pb-18 mx-20">Are You Sure You Want To {!loginBtn?"login":"Log-Out"}?</h1>
+                                       
+                                       {!loginBtn && 
+                                           <span className=" text-[10px] font-semibold">[ <span className="font-bold text-red-600">Note :</span>
+                                          If getting Cors Error! Make Sure DevTool is Open while Loggin-In]
+                                           </span>}
+
+                                       <div className="px-18 flex justify-between items-center pt-5">
+                                              <button onClick={()=>{
+                                                 setflag(false)
+                                                 LoginChange()
+                                              }} className="cursor-pointer font-semibold bg-green-600 text-white p-2 rounded-lg">
+                                                   Confirm
+                                              </button>
+
+                                               <button onClick={()=>{
+                                                 setflag(false)
+                                               }}className="cursor-pointer font-semibold bg-red-600 text-white p-2 rounded-lg">
+                                                   Deny
+                                              </button>
+
+                                       </div>
+                              </div>
+                     </Portal>
    
 
 
-                       {/* Big Header */}
+                       {/* Big Header start*/}
 
-  <div className={`dark:text-white hidden lg:block z-50 w-full fixed ${BgColor && "bg-gray-500 dark:bg-gray-900"}`}>
+  <div className={`rounded-full dark:text-white hidden lg:block z-50 w-full fixed ${BgColor && "bg-gray-500 text-gray-800 dark:bg-gray-900"}`}>
 <div className="py-2 px-5 flex justify-between items-center ">
        
         {/* <img className="logo w-28" src={Logo} /> */}
-         <span className="text-2xl font-bold italic">🛵-FOODI </span>
-       
+        <Link to="/">
+          <span className="cursor-pointer text-2xl font-bold italic">🛵-FOODI </span>
+        </Link>
 
        <span className="flex items-center space-x-10 text-2xl font-semibold">
          
+
+          <Link to="/grocery">
+               <span title="Grocery" className="nav-link flex flex-col items-center mr-14">
+                    {/* <FontAwesomeIcon icon={faCartShopping} /> */}
+                    <span className="text-[17px] font-bold underline decoration-dashed text-center">  <FontAwesomeIcon icon={faShuffle} /> GR </span>
+                    
+                </span>
+            </Link>
+
           <Link to="/"> 
                 <span title="Home" className="nav-link flex flex-col">
                         <FontAwesomeIcon icon={faHouse} />
@@ -146,25 +185,20 @@ return(<>
                 </span>
             </Link> 
 
-            <Link to="/grocery">
-               <span title="Grocery" className="nav-link flex flex-col items-center">
-                    <FontAwesomeIcon icon={faCartShopping} />
-                    {/* <span className="text-[17px] text-center">GR</span> */}
-                    
-                </span>
-            </Link>
+            
 
 
-            <button className={`${loginBtn?"bg-orange-500 px-3.5":"bg-gray-300 px-1.5"}  py-1 rounded-full relative border-4 border-gray-400 cursor-pointer`}
-            onClick={()=>{LoginChange()}}>
+            <button className={`bg-orange-500 px-1.5 py-1 rounded-full relative border-4 border-gray-400 cursor-pointer`}
+             >
             <span className="Online-status text-lg absolute -right-1 -bottom-2">{UseOnlineStatus()?"🟢":"🔴"}</span>
-            <span>{loginBtn? Username[0].toUpperCase() : <FontAwesomeIcon icon={faUser} />} </span>
+            <span> <FontAwesomeIcon icon={faUser} /> </span>
             </button>
 
             
        </span>
 </div>
 </div>                     
+                         {/* Big Header End */}
 
 </>
 

@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 const MenuListCard=({props,flag})=>{
 
-
     const {name,isVeg,price,defaultPrice,finalPrice,ratings,imageId}=props;
 
     const dispatch=useDispatch()
@@ -17,8 +16,6 @@ const MenuListCard=({props,flag})=>{
     }
 
     const removeItem=(props)=>{
-        console.log(props);
-        
         dispatch(removeCart(props.id))
     }
 
@@ -26,14 +23,14 @@ const MenuListCard=({props,flag})=>{
 
     return(
         <div className="flex items-center justify-between p-5 border-b border-gray-500">
-            <div className="flex flex-col space-y-1">
+            <div className="w-10/12 flex flex-col space-y-1">
                      <span className={`border-2 ${isVeg?"border-green-500":"border-red-500"} text-xs w-fit rounded-sm`}>{isVeg?"🟢":"🔴"}</span>
-                     <span className="text-xl font-bold">{name}</span>
+                     <span className="text-xl font-bold text-wrap">{name}</span>
                      <span className="text-gray-500">Rs {finalPrice?finalPrice/100:price?price/100:defaultPrice/100}</span>
-                     <span>&#x2605;{ratings.aggregatedRating.rating}({ratings.aggregatedRating.ratingCountV2})</span>
+                     <span>&#x2605;{ratings && `${ratings.aggregatedRating.rating} (${ratings.aggregatedRating.ratingCountV2})` }</span>
             </div>
-            <div className="flex flex-col items-center">
-                <img className="h-28 w-36 rounded-xl" src={Swiggy_Image_CDN+imageId} alt="" />
+            <div className="w-4/12 flex flex-col items-center">
+                <img className="h-28 w-36 shrink-0 rounded-xl" src={Swiggy_Image_CDN+imageId} alt="" />
                 <span className="bg-black dark:bg-gray-300 dark:text-black text-white w-fit px-7 py-2 rounded-lg -mt-4 font-semibold cursor-pointer"
                  onClick={flag?()=>addItem(props):()=>removeItem(props)}
                 >

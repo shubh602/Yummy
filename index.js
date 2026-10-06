@@ -14,26 +14,18 @@ import MenuPage from "./src/Component/MenuPage";
 import { userContext , DarkLight} from "./src/utils/UserContext";
 import { Provider } from "react-redux";
 import Appstore from "./src/utils/appStore";
+import Portal from "./src/Component/Portal";
 
 
 
-    const Grocery=lazy(()=>import("./src/Component/Grocery"))
+const Grocery=lazy(()=>import("./src/Component/Grocery"))
     
 
   
     let App = () =>{
  
-      const [info,setInfo]=useState()
       const [mode,setMode]=useState(false)
-
-
-    const user=useContext(userContext)
-    // const flag=useContext(DarkLight)
-
-      
-    useEffect(()=>{
-      setInfo(user.Username)
-    },[])
+  
 
     useEffect(()=>{
         if(mode)document.documentElement.classList.add("dark");
@@ -47,9 +39,10 @@ import Appstore from "./src/utils/appStore";
 
         return(
         <Provider store={Appstore}> 
-          <userContext.Provider value={{Username:info,setInfo:setInfo,mode:mode,setMode:setMode}}>
+          <userContext.Provider value={{mode:mode,setMode:setMode}}>
               <Header />   
               <Outlet />  
+              <Portal />
           </userContext.Provider>    
             </Provider>
             )};

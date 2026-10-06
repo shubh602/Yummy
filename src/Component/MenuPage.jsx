@@ -7,24 +7,16 @@ import { MenuList1 } from "./MenuList1";
 import { MenuList2 } from "./MenuList2";
 
 const MenuPage=()=>{
-
- 
-     
+   
     const param=useParams();
     const Menu=useMenu(param)
-    // console.log(Menu);
-    //  console.log(Menu[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards);
-
-    
-   
-     
- console.log(Menu);
+  
     
 if(Menu === undefined || Menu.length === 0) return <Shimmer />
 
 let {name,cloudinaryImageId,avgRating,cuisines,areaName,sla} =Menu[2]?.card?.card?.info;
 
-        const filterData=Menu[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter((res)=>res?.card?.card?.["@type"] == "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory" || res?.card?.card?.["@type"] == "type.googleapis.com/swiggy.presentation.food.v2.NestedItemCategory")
+        const filterData=Menu[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter((res)=>res?.card?.card?.["@type"] == "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory" || res?.card?.card?.["@type"] == "type.googleapis.com/swiggy.presentation.food.v2.NestedItemCategory")
 
         
 

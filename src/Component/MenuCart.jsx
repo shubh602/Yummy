@@ -6,7 +6,7 @@ let ProductCart = (props) =>{
 
      const {resdata}=props;
      
-     const {name,avgRating,sla,costForTwo,cloudinaryImageId}=resdata?.info;
+     const {name,avgRating,sla,cuisines,costForTwo,cloudinaryImageId}=resdata?.info;
 
    
 return(
@@ -26,7 +26,7 @@ return(
         <span className="font-bold">{name}</span>  
         
         <span className=""> 
-        <span className="font-semibold"> Cusien's :</span> biryani , north indian , south indian, chines , italian 
+        <span className="font-semibold"> Cusien's :</span> {cuisines.join(" , ")} 
         </span>
 
        <span className="pt-6">{costForTwo}</span>
