@@ -38,14 +38,14 @@ return (!list.length)? <Shimmer /> : (
 
                                    {/* Filter START */}
 
- <div className="px-3 md:px-5 pt-32 flex flex-col lg:flex-row items-end lg:justify-between space-y-4 space-x-4 py-8 dark:bg-black dark:text-white ">
+ <div className="px-4 sm:px-6 pt-28 sm:pt-32 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-5 py-7 sm:py-9 bg-orange-50/70 dark:bg-stone-950 dark:text-white">
   
-      <div className="space-x-2 relative -mr-3">
+      <div className="relative w-full sm:w-auto">
             <input type="text" placeholder="Search..." name="" 
-                className="bg-gray-200 dark:text-black px-4 py-0.5 w-72 lg:w-[400px] rounded-sm "
+                className="w-full sm:w-80 lg:w-[420px] rounded-xl border border-orange-200 bg-white px-4 py-3 pr-14 text-stone-800 shadow-sm transition placeholder:text-stone-400 focus:border-orange-400 focus:outline-none focus:ring-4 focus:ring-orange-100 dark:border-stone-700 dark:bg-stone-900 dark:text-white dark:placeholder:text-stone-500 dark:focus:ring-orange-950"
                 value={input} onChange={(e)=>setInput(e.target.value)} id="" />
 
-            <button className="bg-gray-800 dark:bg-gray-600 text-white px-2.5 py-0 text-xl rounded-sm absolute -ml-13 cursor-pointer"
+            <button className="absolute right-1.5 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-lg bg-orange-600 text-lg text-white shadow-sm transition hover:bg-orange-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500"
              onClick={()=>{
               const filtered=list.filter((val)=>val.info.name.toLowerCase().includes(input.toLocaleLowerCase()) )
               setShowList(filtered) 
@@ -55,8 +55,8 @@ return (!list.length)? <Shimmer /> : (
 
       </div>    
 
-       <div className="flex space-x-6">
-             <button className="bg-gray-300 dark:bg-gray-700 px-1 py-0.5 rounded-sm cursor-pointer"
+       <div className="flex items-center gap-3 self-end sm:self-auto">
+             <button className="flex h-11 w-11 items-center justify-center rounded-xl border border-orange-200 bg-white text-stone-700 shadow-sm transition hover:-translate-y-0.5 hover:border-orange-300 hover:text-orange-700 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-200 dark:hover:text-orange-300"
               data-testid="filter-id"
               onClick={()=>{
                     let filterData=list.filter((res)=>res.info.avgRating>=4.3)   
@@ -66,7 +66,7 @@ return (!list.length)? <Shimmer /> : (
               <FontAwesomeIcon icon={filter?faFilterCircleXmark:faFilter} />
               </button>
 
-            <button className="bg-gray-300 dark:bg-gray-700 px-2 py-1 rounded-2xl space-x-2 text-md flex items-center"
+            <button className="flex h-11 items-center gap-2 rounded-xl border border-orange-200 bg-white px-3 text-base shadow-sm transition hover:-translate-y-0.5 dark:border-stone-700 dark:bg-stone-900"
               onClick={()=>setMode(!mode)}>
                 <FontAwesomeIcon icon={faMoon} className={`${mode ? "text-gray-50 text-2xl":"text-gray-200"}`} /> 
                 <FontAwesomeIcon icon={faSun} className={`${!mode ? "text-orange-500 text-2xl":"text-orange-950"}`} /> 
@@ -92,7 +92,7 @@ return (!list.length)? <Shimmer /> : (
                               
 
 
-    <div className="dark:bg-black px-3 lg:px-5 py-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 space-x-6 space-y-8">
+    <div className="mx-auto grid max-w-7xl grid-cols-1 gap-5 px-4 py-6 sm:grid-cols-2 sm:gap-6 sm:px-6 lg:grid-cols-3 lg:gap-7 xl:grid-cols-4">
      
      {
        showList.map((res) => <Link key={res.info.id} to={"/menu/"+res.info.id} >
